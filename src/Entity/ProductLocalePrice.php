@@ -23,14 +23,15 @@ class ProductLocalePrice
     private $product;
 
     /**
-     * @ORM\Column(type="string", length=5)
-     */
-    private $locale;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $price;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\LocaleCurrency")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $locale;
 
     public function getId()
     {
@@ -49,18 +50,6 @@ class ProductLocalePrice
         return $this;
     }
 
-    public function getLocale(): ?string
-    {
-        return $this->locale;
-    }
-
-    public function setLocale(string $locale): self
-    {
-        $this->locale = $locale;
-
-        return $this;
-    }
-
     public function getPrice(): ?int
     {
         return $this->price;
@@ -69,6 +58,18 @@ class ProductLocalePrice
     public function setPrice(int $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getLocale(): ?LocaleCurrency
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(?LocaleCurrency $locale): self
+    {
+        $this->locale = $locale;
 
         return $this;
     }

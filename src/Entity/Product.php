@@ -29,7 +29,7 @@ class Product
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ProductLocalePrice", mappedBy="product", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductLocalePrice", mappedBy="product", orphanRemoval=true, cascade={"persist"})
      */
     private $productLocalePrices;
 
