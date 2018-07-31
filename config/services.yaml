@@ -26,5 +26,18 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    simpleshop.locale_currency.repository:
+      class: Doctrine\ORM\EntityRepository
+      factory: ['@doctrine.orm.default_entity_manager', getRepository]
+      arguments:
+        - App\Entity\LocaleCurrency
+
+    simpleshop.form.product.model.factory:
+      class: App\Service\ProductModelFactory
+      public: true
+      arguments:
+        $localeCurrencyRepository: '@simpleshop.locale_currency.repository'
+
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
