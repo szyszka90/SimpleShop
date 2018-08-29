@@ -1,4 +1,7 @@
 {
+    "beberlei/assert": {
+        "version": "v2.9.6"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -91,6 +94,12 @@
     },
     "psr/simple-cache": {
         "version": "1.0.1"
+    },
+    "simple-bus/message-bus": {
+        "version": "v3.0.1"
+    },
+    "simple-bus/symfony-bridge": {
+        "version": "v5.1.2"
     },
     "swiftmailer/swiftmailer": {
         "version": "v6.1.2"
@@ -196,6 +205,9 @@
     },
     "symfony/property-access": {
         "version": "v4.1.2"
+    },
+    "symfony/proxy-manager-bridge": {
+        "version": "v4.1.4"
     },
     "symfony/routing": {
         "version": "4.0",
