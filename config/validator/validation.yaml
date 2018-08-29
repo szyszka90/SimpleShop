@@ -1,0 +1,8 @@
+App\Entity\Product:
+  properties:
+    name:
+      - NotBlank: ~
+    description:
+      - Length:
+          min: 100
+          minMessage: 'The description must be at least  {{ limit }} characters'
