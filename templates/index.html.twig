@@ -1,5 +1,26 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-Mainpage
+    <div class="count">
+        Wszystkich produktów: {{ pagination.getTotalItemCount }}
+    </div>
+    <table>
+        <tr>
+            <th>{{ knp_pagination_sortable(pagination, 'Id', 'id') }}</th>
+            <th{% if pagination.isSorted('name') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Name', 'name') }}</th>
+            <th>Currency</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Added', 'createdAt') }}</th>
+        </tr>
+        {% for article in pagination %}
+            <tr>
+                <td>{{ article.id }}</td>
+                <td>{{ article.name }}</td>
+                <td>{{ article.productLocalePrices.first.locale.currency }}</td>
+                <td>{{ article.createdAt | date('Y-m-d H:i:s') }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 {% endblock %}

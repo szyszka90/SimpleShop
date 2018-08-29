@@ -2,16 +2,24 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
 use App\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class ProductController extends Controller
 {
-
     public function index(Request $request)
     {
-        return $this->render('index.html.twig');
+        $products = $this->get('simpleshop.products.query')->getAllOrderedByCreatedAt();
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $products,
+            $request->query->getInt('page', 1),
+            10
+        );
+
+        return $this->render('index.html.twig', ['pagination' => $pagination] );
     }
 
     public function add(Request $request)
