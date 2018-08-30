@@ -2,13 +2,25 @@
 
 namespace App\Controller;
 
+use App\Application\Command\AddNewProductCommand;
 use App\Entity\Product;
 use App\Form\ProductType;
+use SimpleBus\SymfonyBridge\Bus\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class ProductController extends Controller
 {
+    /**
+     * @var CommandBus
+     */
+    private $commandBus;
+
+    public function __construct(CommandBus $commandBus)
+    {
+        $this->commandBus = $commandBus;
+    }
+
     public function index(Request $request)
     {
         $products = $this->get('simpleshop.products.query')->getAllOrderedByCreatedAt();
@@ -31,9 +43,7 @@ class ProductController extends Controller
         if($form->isSubmitted() && $form->isValid())
         {
             $product = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($product);
-            $em->flush();
+            $this->commandBus->handle((new AddNewProductCommand($product)));
 
             return $this->redirectToRoute('index');
         }

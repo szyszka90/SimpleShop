@@ -6,16 +6,18 @@
     </div>
     <table>
         <tr>
-            <th>{{ knp_pagination_sortable(pagination, 'Id', 'id') }}</th>
-            <th{% if pagination.isSorted('name') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Name', 'name') }}</th>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
             <th>Currency</th>
-            <th>{{ knp_pagination_sortable(pagination, 'Added', 'createdAt') }}</th>
+            <th>Added</th>
         </tr>
         {% for article in pagination %}
             <tr>
                 <td>{{ article.id }}</td>
                 <td>{{ article.name }}</td>
-                <td>{{ article.productLocalePrices.first.locale.currency }}</td>
+                <td>{{ article.price }}</td>
+                <td>{{ article.currency }}</td>
                 <td>{{ article.createdAt | date('Y-m-d H:i:s') }}</td>
             </tr>
         {% endfor %}
@@ -23,4 +25,5 @@
     <div class="navigation">
         {{ knp_pagination_render(pagination) }}
     </div>
+    <a href="{{ path('add') }}">Add product</a>
 {% endblock %}

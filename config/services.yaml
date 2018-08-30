@@ -4,7 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-
+  locale: 'pl_PL'
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -38,6 +38,15 @@ services:
       arguments:
         $repository: '@simpleshop.product.repository'
 
+    simpleshop.handler.add_product:
+      class: App\Application\Command\AddNewProductHandler
+      public: true
+      tags:
+        - { name: command_handler, handles: App\Application\Command\AddNewProductCommand}
+      arguments:
+        $localeInformation: '@simpleshop.utils.locale_information'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    simpleshop.utils.locale_information:
+      class: App\Service\LocaleInformation
+      arguments:
+        $locale: '%locale%'

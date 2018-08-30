@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use App\Domain\ProductInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
-class Product
+class Product implements ProductInterface
 {
     /**
      * @ORM\Id()
@@ -94,7 +96,6 @@ class Product
         return $this;
     }
 
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->created_at;
@@ -105,5 +106,13 @@ class Product
         $this->created_at = $created_at;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function setCreatedAtValue()
+    {
+        $this->created_at = new \DateTime();
     }
 }
