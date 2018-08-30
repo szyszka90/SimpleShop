@@ -4,8 +4,6 @@
     {{ form_start(form) }}
         {{ form_row(form.name) }}
         {{ form_row(form.description) }}
-        {% for localePrice in form.prices %}
-            {{ form_row(localePrice) }}
-        {% endfor%}
+        {{ form_row(form.price) }}
     {{ form_end(form) }}
 {% endblock %}

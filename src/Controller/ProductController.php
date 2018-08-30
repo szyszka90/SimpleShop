@@ -24,9 +24,7 @@ class ProductController extends Controller
 
     public function add(Request $request)
     {
-        $productModelFactory = $this->get('simpleshop.form.product.model.factory');
-        $product = $productModelFactory->getProductModel();
-
+        $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 

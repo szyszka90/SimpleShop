@@ -26,23 +26,11 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    simpleshop.locale_currency.repository:
-      class: Doctrine\ORM\EntityRepository
-      factory: ['@doctrine.orm.default_entity_manager', getRepository]
-      arguments:
-        - App\Entity\LocaleCurrency
-
     simpleshop.product.repository:
       class: Doctrine\ORM\EntityRepository
       factory: ['@doctrine.orm.default_entity_manager', getRepository]
       arguments:
         - App\Entity\Product
-
-    simpleshop.form.product.model.factory:
-      class: App\Service\ProductModelFactory
-      public: true
-      arguments:
-        $localeCurrencyRepository: '@simpleshop.locale_currency.repository'
 
     simpleshop.products.query:
       class: App\Application\Query\DoctrineProductsQuery

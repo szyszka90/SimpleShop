@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -29,19 +27,19 @@ class Product
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ProductLocalePrice", mappedBy="product", orphanRemoval=true, cascade={"persist"})
+     * @ORM\Column(type="float")
      */
-    private $productLocalePrices;
+    private $price;
+
+    /**
+     * @ORM\Column(type="string", length=5)
+     */
+    private $currency;
 
     /**
      * @ORM\Column(type="datetime")
      */
     private $created_at;
-
-    public function __construct()
-    {
-        $this->productLocalePrices = new ArrayCollection();
-    }
 
     public function getId()
     {
@@ -72,36 +70,30 @@ class Product
         return $this;
     }
 
-    /**
-     * @return Collection|ProductLocalePrice[]
-     */
-    public function getProductLocalePrices(): Collection
+    public function getPrice(): ?float
     {
-        return $this->productLocalePrices;
+        return $this->price;
     }
 
-    public function addProductLocalePrice(ProductLocalePrice $productLocalePrice): self
+    public function setPrice(float $price): self
     {
-        if (!$this->productLocalePrices->contains($productLocalePrice)) {
-            $this->productLocalePrices[] = $productLocalePrice;
-            $productLocalePrice->setProduct($this);
-        }
+        $this->price = $price;
 
         return $this;
     }
 
-    public function removeProductLocalePrice(ProductLocalePrice $productLocalePrice): self
+    public function getCurrency(): ?string
     {
-        if ($this->productLocalePrices->contains($productLocalePrice)) {
-            $this->productLocalePrices->removeElement($productLocalePrice);
-            // set the owning side to null (unless already changed)
-            if ($productLocalePrice->getProduct() === $this) {
-                $productLocalePrice->setProduct(null);
-            }
-        }
+        return $this->currency;
+    }
+
+    public function setCurrency(string $currency): self
+    {
+        $this->currency = $currency;
 
         return $this;
     }
+
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
