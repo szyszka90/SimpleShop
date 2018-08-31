@@ -5,6 +5,9 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
   locale: 'pl_PL'
+  sender_mail: noreply@simpleshop.com
+  admin_mail: m.szyszewski@gmail.com
+
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -44,9 +47,16 @@ services:
       tags:
         - { name: command_handler, handles: App\Application\Command\AddNewProductCommand}
       arguments:
+        $messageFactory: '@simpleshop:utils.message_factory'
         $localeInformation: '@simpleshop.utils.locale_information'
+        $adminMail: '%admin_mail%'
 
     simpleshop.utils.locale_information:
       class: App\Service\LocaleInformation
       arguments:
         $locale: '%locale%'
+
+    simpleshop:utils.message_factory:
+      class: App\Service\MessageFactory
+      arguments:
+        $from: '%sender_mail%'
