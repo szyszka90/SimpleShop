@@ -21,6 +21,6 @@ class LocaleInformation
     {
         $localeInformation = localeconv();
 
-        return $localeInformation[$field];
+        return trim($localeInformation[$field]);
     }
 }

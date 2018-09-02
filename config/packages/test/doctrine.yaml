@@ -1,0 +1,14 @@
+doctrine:
+    dbal:
+        # configure these for your database server
+        driver: 'pdo_mysql'
+        server_version: '5.5'
+        charset: utf8mb4
+        default_table_options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
+
+#        url: '%env(resolve:DATABASE_URL)%'
+        user: root
+        unix_socket: /opt/local/var/run/mariadb-10.0/mysqld.sock
+        dbname: simpleshop_test
