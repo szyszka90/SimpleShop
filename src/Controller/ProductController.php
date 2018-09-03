@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Application\Command\AddNewProductCommand;
+use App\Application\Query\ProductsQueryInterface;
 use App\Entity\Product;
 use App\Form\ProductType;
 use SimpleBus\SymfonyBridge\Bus\CommandBus;
@@ -21,9 +22,9 @@ class ProductController extends Controller
         $this->commandBus = $commandBus;
     }
 
-    public function index(Request $request)
+    public function index(Request $request, ProductsQueryInterface $productsQuery)
     {
-        $products = $this->get('simpleshop.products.query')->getAllOrderedByCreatedAt();
+        $products = $productsQuery->getAllOrderedByCreatedAt();
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $products,
